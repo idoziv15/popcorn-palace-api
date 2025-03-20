@@ -32,7 +32,7 @@ Ensure you have the following installed on your system:
 ## Installation
 1. Clone the repository:
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/idoziv15/popcorn-palace-api.git
    cd popcorn_palace_typescript
 
 2. Ensure you have Docker and Docker Compose installed.
