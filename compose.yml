@@ -1,0 +1,36 @@
+services:
+  db:
+    container_name: popcorn-palace-db
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: popcorn-palace
+      POSTGRES_PASSWORD: popcorn-palace
+      POSTGRES_DB: popcorn-palace
+  #  volumes:
+   #   - type: bind
+   #     source: ./data
+   #     target: /var/lib/postgresql/data --> in case u need to save data to local storage
+    ports:
+      - target: 5432
+        published: 5432
+        protocol: tcp
+  
+  api:
+    build: .
+    depends_on:
+      - db
+    env_file: 
+      - .env
+    environment:
+      DATABASE_HOST: popcorn-palace-db
+      DATABASE_PORT: 5432
+      DATABASE_USER: popcorn-palace
+      DATABASE_PASSWORD: popcorn-palace
+      DATABASE_NAME: popcorn-palace
+    ports:
+      - "3000:3000"
+    command: ["npm", "run", "start:dev"]
+    volumes:
+      - .:/app
+      - /app/node_modules
